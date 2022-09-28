@@ -10,7 +10,10 @@
     <modules>
         <module>service-common</module>
         <module>service-auto-deliver</module>
-        <module>service-resume</module>
+        <module>service-resume-8080</module>
+        <module>service-resume-8081</module>
+        <module>eureka-server-8761</module>
+        <module>eureka-server-8762</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -59,10 +62,10 @@
             <scope>provided</scope>
         </dependency>
         <!-- Actuator可以帮助你监控和管理Spring Boot应用-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--        </dependency>-->
         <!--热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,7 +101,7 @@
         <!--引入Jaxb，结束-->
 
 
-        <!--&lt;!&ndash;spring cloud commons模块引入&ndash;&gt;
+<!--        &lt;!&ndash;&lt;!&ndash;spring cloud commons模块引入&ndash;&gt;-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-commons</artifactId>
@@ -110,7 +113,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!--链路追踪-->
         <!--<dependency>

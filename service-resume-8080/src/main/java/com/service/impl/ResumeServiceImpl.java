@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResumeServiceImpl implements ResumeService {
 
-    @Autowired
-    private ResumeDao resumeDao;
-
     @Override
     public Resume findDefaultResumeByUserId(Long userId) {
         Resume resume = new Resume();

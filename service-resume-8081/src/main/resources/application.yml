@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: service-resume
+
+    #注册到Eureka服务中心
+eureka:
+  client:
+    service-url:
+#      指向Eureka集群,集群中有台服务，就用逗号隔开
+      defaultZone: http://nodea:8761/eureka/,http://nodeb:8762/eureka/
+  instance:
+    prefer-ip-address: true
+#    自定义Eureka元数据，可以注册到Eureka Server中去
+    metadata-map:
+      cluster: cl1
+      region: rn1
