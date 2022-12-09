@@ -14,6 +14,8 @@
         <module>service-resume-8081</module>
         <module>eureka-server-8761</module>
         <module>eureka-server-8762</module>
+        <module>hystrix-dashboard-9000</module>
+        <module>oauth2-server-9999</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -61,11 +63,11 @@
             <version>1.18.4</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Actuator可以帮助你监控和管理Spring Boot应用-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--        </dependency>-->
+        <!-- Actuator可以帮助你监控和管理Spring Boot应用,hystrix仪表盘需要用到-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <!--热部署-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

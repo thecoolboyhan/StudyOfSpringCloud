@@ -10,7 +10,7 @@ eureka:
     hostname: nodeb
   client:
     service-url:   #配置客户端所交互的Eureka server的地址
-      defaultZone: http://nodea:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/
     registerWithEureka: true #是否从其他eureka获取配置
     fetchRegistry: true  #是否注册到eureka，自己就是server不需要注册自己
 

@@ -1,0 +1,15 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: hystrix-dashboard
+eureka:
+  client:
+    service-url:
+      defaultZone:
+        #      指向Eureka集群,集群中有台服务，就用逗号隔开
+        http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
+  instance:
+    prefer-ip-address: true
+
+#    使用ip注册，否则默认使用主机名

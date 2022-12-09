@@ -6,7 +6,7 @@ eureka:
   client:
     service-url:
       #      指向Eureka集群,集群中有台服务，就用逗号隔开
-      defaultZone: http://nodea:8761/eureka/,http://nodeb:8762/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
   instance:
     prefer-ip-address: true
 
@@ -43,5 +43,3 @@ ribbon:
   ####如果依然不⾏，返回失败信息。
   MaxAutoRetries: 0 #对当前选中实例重试次数，不包括第⼀次调⽤
   MaxAutoRetriesNextServer: 0 #切换实例的重试次数
-  NFLoadBalancerRuleClassName:
-  com.netflix.loadbalancer.RoundRobinRule #负载策略调整
