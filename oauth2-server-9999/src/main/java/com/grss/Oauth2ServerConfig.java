@@ -1,7 +1,9 @@
 package com.grss;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -19,6 +21,9 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 //开启认证服务器功能
 @EnableAuthorizationServer
 public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     //客户端详情配置
     @Override
@@ -50,7 +55,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         super.configure(endpoints);
         endpoints.tokenStore(tokenStore())//指定token的存储方式
                 .tokenServices(authorizationServerTokenServices())//token服务的描述，可以认为是token 的细节描述，比如有效时间等
-                .authenticationManager(null)//指定认证管理器，注入一个就可以用
+                .authenticationManager(authenticationManager)//指定认证管理器，注入一个就可以用
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);//配置请求的方式
 
     }
