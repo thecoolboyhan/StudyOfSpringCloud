@@ -10,8 +10,10 @@
     <modules>
         <module>service-common</module>
         <module>service-auto-deliver</module>
+        <module>service-auto-deliver-nacos-8097</module>
         <module>service-resume-8080</module>
         <module>service-resume-8081</module>
+        <module>service-resume-8082-nacos</module>
         <module>eureka-server-8761</module>
         <module>eureka-server-8762</module>
         <module>hystrix-dashboard-9000</module>
@@ -36,6 +38,16 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--        SCA-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.1.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

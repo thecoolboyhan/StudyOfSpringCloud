@@ -1,9 +1,11 @@
 package com.grss;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -13,6 +15,8 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * Oauth2server的配置类
@@ -62,7 +66,27 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     //创建一个用于存储token对象的tokenstore
     public TokenStore tokenStore(){
-        return new InMemoryTokenStore();
+//        return new InMemoryTokenStore();
+
+        //使用JWTTokenstore
+        return new JwtTokenStore(jwtAccessTokenConverter);
+    }
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    //JWT签名的密钥
+    private String signKey="grss123";
+    /**
+     * 返回一个JWT令牌转换器
+     * @return
+     */
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter jwtAccessTokenConverter=new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(signKey);     //设置签名密钥
+        jwtAccessTokenConverter.setVerifier(new MacSigner(signKey));       //设置校验时使用的密钥，现在使用的是对称加密，所以使用相同的密钥。
+        return jwtAccessTokenConverter;
     }
 
     //返回一个token服务对象，描述了token 的有效期等对象
@@ -71,6 +95,11 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
         DefaultTokenServices defaultTokenServices=new DefaultTokenServices();
         defaultTokenServices.setSupportRefreshToken(true);//是否支持令牌
         defaultTokenServices.setTokenStore(tokenStore());//指定token存放的位置
+
+        //针对JWT令牌的添加
+        defaultTokenServices.setTokenEnhancer(jwtAccessTokenConverter);
+
+
         defaultTokenServices.setAccessTokenValiditySeconds(20);//设置令牌的有效时间
         defaultTokenServices.setRefreshTokenValiditySeconds(259200);//设置刷新令牌的时间
         return defaultTokenServices;
